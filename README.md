@@ -1,7 +1,7 @@
 # COP-4331-Contact-Manager-Group-22 
 
 
-Contributors:
+### Contributors
 
   - Aden Rae Carver
     > API
@@ -13,3 +13,8 @@ Contributors:
     > Front-End
   - Cooper Josheph Urich
     > Project Manager
+    
+    
+    
+### Project Description
+    > Contact manager built on a LAMP stack hosted on a GoDaddy server.
