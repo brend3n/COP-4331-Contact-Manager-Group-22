@@ -17,4 +17,4 @@
     
     
 ### Project Description
-    > Contact manager built on a LAMP stack hosted on a GoDaddy server.
+    >Contact manager built on a LAMP stack hosted on a GoDaddy server.
