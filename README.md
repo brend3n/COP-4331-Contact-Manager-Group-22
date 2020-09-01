@@ -8,7 +8,7 @@ Contributors:
   - Christian Camilo Lozano
     > Front-End
   - Brenden Austin Morton
-    > Back-End
+    > Database
   - Jainav Patel
     > Front-End
   - Cooper Josheph Urich
