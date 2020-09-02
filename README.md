@@ -11,7 +11,7 @@
     > Database
   - Jainav Patel
     > Front-End
-  - Cooper Josheph Urich
+  - Cooper Urich
     > Project Manager
     
     
