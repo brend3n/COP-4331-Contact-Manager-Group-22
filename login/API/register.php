@@ -7,9 +7,7 @@
   $username = $inData["username"];
   $password = $inData["password"];
 
-  //MUST SORT OUT ISSUE WITH CONNECTING TO DB
-  //ERROR: 403
-  //$conn = new myspli("localhost", "smallpro_aden", "smallproCOP4331", "smallpro_cop4331");
+  $conn = new myspli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
   //establishing connection
   if($conn->connect_error) {
