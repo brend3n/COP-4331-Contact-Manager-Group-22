@@ -2,21 +2,31 @@ h1
 {
     text-align: center;
     font-size: 48px;
+    color: white;
+    position: absolute;
+    top : 10px;
+    left: 750px;
 }
 
 #login_form
 {
+    position: absolute;
+    top: 120px;
+    left: 770px;
+    color : white;
     font-size: 20px;
     display: inline-block;
     width: 14%;
-    /*box-sizing: border-box;*/
+    box-sizing: border-box;
 }
 
 body
 {
-    background-image: url(../images/background.jpg);  
+    /*background-image: url(../images/background.jpg);  
+ */
     text-align: center;
-
+    z-index: 1;
+    background-color: black;
 }
 
 button
@@ -28,4 +38,10 @@ button
 p
 {
     text-align: left;
+}
+
+canvas
+{
+    display: block;
+    z-index: -1;
 }

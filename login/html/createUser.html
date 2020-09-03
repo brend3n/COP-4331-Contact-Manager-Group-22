@@ -4,7 +4,8 @@
     <link href = " ..\css\siteCSS.css" rel ="stylesheet">
 </head>
     <!-- Login fields and buttons-->
-    <body style = "background-color: white;">
+    <canvas id = "c"></canvas>
+    <body style = "background-color: black;">
         
         <h1>Address Book</h1>
         <form id = "login_form">
@@ -19,7 +20,7 @@
                 </p>
 
                 <p>
-                    <label>Passsword: </label>
+                    <label>Password: </label>
                     <input type = "password"
                     id = "passwordField"
                     value = ""
@@ -28,7 +29,7 @@
                 </p>
 
                 <p>
-                    <label>Verify Passsword: </label>
+                    <label>Verify Password: </label>
                     <input type = "password"
                     id = "passwordField"
                     value = ""
@@ -44,5 +45,7 @@
 
             </fieldset>
         </form>
+
+        <script src="../JS/matrix.js" type="text/javascript"></script>
     </body>
 </html>
