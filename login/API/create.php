@@ -7,9 +7,7 @@
   $email = $inData["email"];
   $number = $inData["number"];
 
-  //MUST SORT OUT ISSUE WITH CONNECTING TO DB
-  //ERROR: 403
-  //$conn = new myspli("localhost", "smallpro_aden", "smallproCOP4331", "smallpro_cop4331");
+  $conn = new myspli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
   //establish connection
   if($conn->connect_error) {
