@@ -17,7 +17,6 @@ $newNumber = $inData["newNumber"];
 
 //populate array
 $array = array($newFirst, $newLast, $newEmail, $newNumber);
-$loopArray = array("FirstName" => 0, "LastName" => 0, "Email" => 0, "PhoneNumber" => 0);
 
 $conn = new myspli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
@@ -30,16 +29,12 @@ else {
   $sql = "SELECT FK_UserID FROM Contacts where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "' and Email='" . $inData["email"] . "'and PhoneNumber='" . $inData["number"] . "'";
   $result = $conn->query($sql);
 
-  //use ID lookup
+  //use ID, first, last, and email lookup
   if($result->num_rows > 0) {
     $row = $result->fetch_assoc();
 
-    //set id
-    $id = $row["FK_UserID"];
-
-
-      //new sql command
-      $sql = "UPDATE Contacts SET"
+    //send sql queries
+    sendUpdates($array, $row);
   }
 
   else {
@@ -48,6 +43,56 @@ else {
 }
 
 //aux functs
+function sendUpdates($array, $row) {
+  //set id, firstname, lastname, and email
+  $id = $row["FK_UserID"];
+  $firstName = $row["FirstName"];
+  $lastName = $row["LastName"];
+  $email = $row["Email"];
+
+  //loop through the array for new strings
+  for($i = 0; $i < 4; $i++) {
+    //if the string is new
+    if(strlen($array[$i]) > 0) {
+      //firstname
+      if($i == 0) {
+        $sql = "UPDATE Contacts SET FirstName='" . $array[$i] . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName "' and Email='" . $email . "'";
+        $result = $conn->query($sql);
+
+        //update firstName
+        $firstName = $array[$i];
+      }
+
+      //lastname
+      else if($i == 1) {
+        $sql = "UPDATE Contacts SET LastName='" . $array[$i] . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName "' and Email='" . $email . "'";
+        $result = $conn->query($sql);
+
+        //update lastName
+        $lastName = $array[$i];
+      }
+
+      //email
+      else if($i == 2) {
+        $sql = "UPDATE Contacts SET Email='" . $array[$i] . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName "' and Email='" . $email . "'";
+        $result = $conn->query($sql);
+
+        //update lastName
+        $email = $array[$i];
+      }
+
+      //number
+      else {
+        $sql = "UPDATE Contacts SET PhoneNumber='" . $array[$i] . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName "' and Email='" . $email . "'";
+        $result = $conn->query($sql);
+
+        //update lastName
+        $lastName = $array[$i];
+      }
+    }
+  }
+}
+
 function getRequestInfo() {
   return json_decode(file_get_contents('php://input'), true);
 }
