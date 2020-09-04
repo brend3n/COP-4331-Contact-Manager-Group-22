@@ -30,6 +30,10 @@
       returnWithInfo($firstName, $lastName, $id, $email, $number);
     }
 
+    else {
+      returnWithError( "No Records Found");
+    }
+
     $conn->close();
   }
 
