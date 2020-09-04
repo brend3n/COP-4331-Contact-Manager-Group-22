@@ -40,6 +40,8 @@
     else {
       returnWithError( "No Records Found");
     }
+
+    $conn->close();
   }
 
   //aux functs
