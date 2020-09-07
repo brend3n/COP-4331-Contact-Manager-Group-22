@@ -6,8 +6,9 @@
   $lastName = $inData["lastName"];
   $email = $inData["email"];
   $number = $inData["number"];
+  $id = $inData["userId"];
 
-  $conn = new myspli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
+  $conn = new mysqli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
   //establish connection
   if($conn->connect_error) {
@@ -15,7 +16,7 @@
   }
 
   else {
-    $sql = "insert into Contacts (FirstName, LastName, Email, PhoneNumber) VALUES '" . $firstName . "','" . $lastName . "','" . $email . "','" . $number . "')";
+    $sql = "insert into `Contacts`(`FirstName`, `LastName`, `Email`, `PhoneNumber`, `FK_UserID`) VALUES '" . $firstName . "','" . $lastName . "','" . $email . "','" . $number . "','" . $id . "')";
 
     if($result = $conn->query($sql) != TRUE) {
       returnWithError($conn->error);
