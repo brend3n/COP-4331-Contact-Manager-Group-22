@@ -8,7 +8,7 @@
   $email = "";
   $number = "";
 
-  $conn = new myspli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
+  $conn = new mysqli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
   //establishing connection
   if($conn->connect_error) {
