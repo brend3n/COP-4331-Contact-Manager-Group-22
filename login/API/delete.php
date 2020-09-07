@@ -6,8 +6,9 @@
   $lastName = $inData["lastName"];
   $email = $inData["email"];
   $number = $inData["number"];
+  $id = $inData["userId"];
 
-  $conn = new myspli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
+  $conn = new mysqli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
   //establish connection
   if($conn->connect_error) {
@@ -16,20 +17,11 @@
 
   else {
     $sql = "DELETE FROM Contacts WHERE FirstName='" . $firstName . "' and LastName='" . $lastName . "' and Email='" . $email . "' and PhoneNumber='" . $number . "' and FK_UserID='" . $id . "'";
-    $result = $conn->query($sql);
+    //$result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-			$row = $result->fetch_assoc();
-			$firstName = $row["FirstName"];
-			$lastName = $row["LastName"];
-			$id = $row["UserID"];
-
-			returnWithInfo($firstName, $lastName, $id );
-		}
-
-		else {
-			returnWithError( "No Records Found" );
-		}
+    if($result = $conn->query($sql) != TRUE) {
+      returnWithError($conn->error);
+    }
 
     $conn->close();
   }
