@@ -7,7 +7,7 @@
     > API
   - Christian Camilo Lozano
     > Front-End
-  - Brenden Austin Morton
+  - Brenden Morton
     > Database
   - Jainav Patel
     > Front-End
