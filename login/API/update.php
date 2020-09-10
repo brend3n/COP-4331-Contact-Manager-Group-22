@@ -26,72 +26,76 @@
   }
 
   else {
-    $sql = "SELECT FK_UserID FROM Contacts where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "' and Email='" . $inData["email"] . "'and PhoneNumber='" . $inData["number"] . "'";
-    $result = $conn->query($sql);
+    //set user's id
+    $id = $inData["userId"];
 
-    //use ID, first, last, and email lookup
-    if($result->num_rows > 0) {
-      $row = $result->fetch_assoc();
+    //send the updates
+    sendUpdates($array, $id);
 
-      //send sql queries
-      sendUpdates($array, $row);
-    }
-
-    else {
-      returnWithError( "No Records Found");
-    }
+    returnWithInfo($newFirst, $newLast, $id, $newEmail, $newNumber);
 
     $conn->close();
   }
 
   //aux functs
-  function sendUpdates($array, $row) {
-    //set id, firstname, lastname, and email
-    $id = $row["FK_UserID"];
-    $firstName = $row["FirstName"];
-    $lastName = $row["LastName"];
-    $email = $row["Email"];
+  function sendUpdates($array, $id) {
+    //select the data
+    $sql = "SELECT FirstName, LastName, Email, PhoneNumber FROM Contacts where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "' and Email='" . $inData["email"] . "' and PhoneNumber='" . $inData["number"] . "' and FK_UserID='" . $id . "'";
+    $result = $conn->query($sql);
 
-    //loop through the array for new strings
-    for($i = 0; $i < 4; $i++) {
-      //if the string is new
-      if(strlen($array[$i]) > 0) {
-        //firstname
-        if($i == 0) {
-          $sql = "UPDATE Contacts SET FirstName='" . $array[$i] . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName "' and Email='" . $email . "'";
+    $row = $result->fetch_assoc();
+
+    //setting values
+    if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			$firstName = $row["FirstName"];
+			$lastName = $row["LastName"];
+			$email = $row["Email"];
+      $number = $row["PhoneNumber"];
+    }
+
+    else {
+      returnWithError( "No Records Found" );
+    }
+
+    if($result->num_rows > 0) {
+      for($i = 0; $i < 4; $i++) {
+        //first name change
+        if($i == 0 && strlen($array[$i]) > 0) {
+          $sql = "UPDATE Contacts SET FirstName='" . $newFirst . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName . "' and PhoneNumber='" . $number . "' and Email='" . $email . "' and FK_UserID'" . $id . "'";
           $result = $conn->query($sql);
 
-          //update firstName
-          $firstName = $array[$i];
+          $firstName = $newFirst;
         }
 
-        //lastname
-        else if($i == 1) {
-          $sql = "UPDATE Contacts SET LastName='" . $array[$i] . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName "' and Email='" . $email . "'";
-          $result = $conn->query($sql);
+        //last name change
+        else if($i == 1 && strlen($array[$i]) > 0) {
+          $sql = "UPDATE Contacts SET LastName='" . $newLast . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName . "' and PhoneNumber='" . $number . "' and Email='" . $email . "' and FK_UserID'" . $id . "'";
 
-          //update lastName
-          $lastName = $array[$i];
+          $lastName = $newLast;
         }
 
-        //email
-        else if($i == 2) {
-          $sql = "UPDATE Contacts SET Email='" . $array[$i] . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName "' and Email='" . $email . "'";
-          $result = $conn->query($sql);
+        //email change
+        else if($i == 2 && strlen($array[$i]) > 0) {
+          $sql = "UPDATE Contacts SET Email='" . $newEmail . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName . "' and PhoneNumber='" . $number . "' and Email='" . $email . "' and FK_UserID'" . $id . "'";
 
-          //update lastName
-          $email = $array[$i];
+          $email = $newEmail;
         }
 
-        //number
-        else {
-          $sql = "UPDATE Contacts SET PhoneNumber='" . $array[$i] . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName "' and Email='" . $email . "'";
-          $result = $conn->query($sql);
+        //number change
+        else if($i == 3 && strlen($array[$i]) > 0) {
+          $sql = "UPDATE Contacts SET PhoneNumber='" . $newNumber . "' WHERE FirstName='" . $firstName . "' and LastName='" . $lastName . "' and PhoneNumber='" . $number . "' and Email='" . $email . "' and FK_UserID'" . $id . "'";
 
-          //update lastName
-          $lastName = $array[$i];
+          $number = $newNumber;
         }
+
+        else
+          ;
       }
+    }
+
+    else {
+      returnWithError( "No Records Found" );
     }
   }
 
@@ -110,7 +114,7 @@
   }
 
   function returnWithInfo( $firstName, $lastName, $id, $email, $number) {
-    $retValue = '{"FK_UserID":' . $id . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName .  '","Email":"' . $email . '","PhoneNumber":"' . $number . '","error":""}';
+    $retValue = 'Successfully updated contact information at: {"FK_UserID":' . $id . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName .  '","Email":"' . $email . '","PhoneNumber":"' . $number . '","error":""}';
     sendResultInfoAsJson( $retValue );
   }
 
