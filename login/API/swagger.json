@@ -1,0 +1,247 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API for first project",
+    "version" : "1",
+    "title" : "COP4331-Group22-API",
+    "contact" : {
+      "email" : "you@your-company.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "Users",
+    "description" : "all registered members"
+  }, {
+    "name" : "Contacts",
+    "description" : "all valid input into contact manager"
+  } ],
+  "paths" : {
+    "/login.php" : {
+      "post" : {
+        "tags" : [ "Users" ],
+        "summary" : "logs into contacts manager",
+        "operationId" : "doLogin",
+        "description" : "logs into contacts manager",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "loginItem",
+          "description" : "Login",
+          "schema" : {
+            "$ref" : "#/definitions/Login"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
+    },
+    "/create.php" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "adds a contact",
+        "operationId" : "addContact",
+        "description" : "adds a contact to the contacts database",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/jso" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "contactItem",
+          "description" : "Contact",
+          "schema" : {
+            "$ref" : "#/definitions/Contact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
+    },
+    "/delete.php" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "deletes a contact",
+        "operationId" : "deleteContact",
+        "description" : "deletes a contact from the contacts database",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "contactItem",
+          "description" : "Contact",
+          "schema" : {
+            "$ref" : "#/definitions/Contact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
+    },
+    "/read.php" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "reads contact information",
+        "operationId" : "readContact",
+        "description" : "reads contact information and returns to user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "contactItem",
+          "description" : "Contact",
+          "schema" : {
+            "$ref" : "#/definitions/Contact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
+    },
+    "/register.php" : {
+      "post" : {
+        "tags" : [ "Users" ],
+        "summary" : "registers new users",
+        "operationId" : "registerUser",
+        "description" : "registers new user and inserts into table of active users",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "registerItem",
+          "description" : "Register",
+          "schema" : {
+            "$ref" : "#/definitions/Register"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
+    },
+    "/update.php" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "updates existing contact information",
+        "operationId" : "updateContact",
+        "description" : "updates existing contact information in database",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "contactItem",
+          "description" : "Contact",
+          "schema" : {
+            "$ref" : "#/definitions/Contact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Login" : {
+      "type" : "object",
+      "required" : [ "login", "password" ],
+      "properties" : {
+        "login" : {
+          "type" : "string",
+          "example" : "fred"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "password"
+        }
+      }
+    },
+    "Contact" : {
+      "type" : "object",
+      "required" : [ "firstName", "lastName", "email", "number", "userId" ],
+      "properties" : {
+        "firstName" : {
+          "type" : "string",
+          "example" : "james"
+        },
+        "lastName" : {
+          "type" : "string",
+          "example" : "sullivan"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "kitty@email.com"
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "1231234567"
+        },
+        "userId" : {
+          "type" : "integer",
+          "example" : 2
+        }
+      }
+    },
+    "Register" : {
+      "type" : "object",
+      "required" : [ "firstName", "lastName", "username", "password" ],
+      "properties" : {
+        "firstName" : {
+          "type" : "string",
+          "example" : "hermione"
+        },
+        "lastName" : {
+          "type" : "string",
+          "example" : "granger"
+        },
+        "username" : {
+          "type" : "string",
+          "example" : "wingardium"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "leviosa"
+        }
+      }
+    }
+  },
+  "host" : "getcontactsmatrixstyle.com",
+  "basePath" : "/LAMPAPI",
+  "schemes" : [ "http" ]
+}
