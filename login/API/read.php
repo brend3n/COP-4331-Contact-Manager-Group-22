@@ -16,7 +16,7 @@
   }
 
   else {
-    $sql = "SELECT FK_UserID,FirstName,LastName,Email,PhoneNumber FROM Contacts where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "'Email='" . $inData["email"] . "'PhoneNumber='" . $inData["number"] . "'";
+    $sql = "SELECT FK_UserID,FirstName,LastName,Email,PhoneNumber FROM Contacts where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "'Email='" . $inData["email"] . "' and PhoneNumber='" . $inData["number"] . "' and FK_UserId='" . $inData["userId"] . "'";
     $result = $conn->query($sql);
 
     if($result->num_rows > 0) {
