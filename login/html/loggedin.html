@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href = " ..\css\loggedin.css" rel ="stylesheet">
+</head>
+<canvas id = "c"></canvas>
+    <!-- Login fields and buttons-->
+    <body style = "background-color: black;">
+        
+        <h1>The Matrix Project</h1>
+        <h2>Contact Search</h2>
+        <h3 id = "newContactHeader">New Contact</h3>
+        
+        <div class = "search"> 
+            
+            <input type = "text" 
+            class = "searchTerm" 
+            id = "searchbar" 
+            placeholder="ex. Big Chungus">
+
+            <button type = "button" class = "searchButton">Search</button>
+            <button class="open-button" id = "open" onclick="openForm()" >Create Contact</button>
+
+        </div>
+
+    <!-- https://www.w3schools.com/howto/howto_js_popup_form.asp-->
+        <script>
+            function openForm()
+            {
+                document.getElementById("open").style.display = "none";
+                document.getElementById("myForm").style.display = "block";
+                document.getElementById("newContactHeader").style.display = "block";
+                
+            }
+
+            function closeForm()
+            {
+                document.getElementById("open").style.display = "inline-block";
+                document.getElementById("myForm").style.display = "none";
+                document.getElementById("newContactHeader").style.display = "none";
+            }
+        </script>
+
+        
+        <!-- ID's for fields
+            firstname: Fname
+            lastname: Lname
+            email: email
+            phone: phone
+        -->
+        <div class="form-popup" id="myForm">
+            <form class="form-container">
+          
+              <label for="firstname"><b>First Name:</b></label>
+              <input type="text" id = "Fname" placeholder="FirstName" name="firstname" required>
+          
+              <label for="lastname"><b>Last Name:</b></label>
+              <input type="text" id = "Lname" placeholder="Last Name" name="lastname" required>
+
+              <label for="email"><b>Email:</b></label>
+              <input type="text" id = "email" placeholder="Email" name="email" required>
+
+              <label for="phone"><b>Phone:</b></label>
+              <input type="text" id = "phone" placeholder="Phone" name="phone" required>
+          
+              <button type="submit" class="btn">add contact</button>
+              <button type="submit" class="btn cancel" onclick="closeForm()">Cancel</button>
+            </form>
+        </div>
+
+        <script src="../JS/matrix.js" type="text/javascript"></script>
+    </body>
+</html>
