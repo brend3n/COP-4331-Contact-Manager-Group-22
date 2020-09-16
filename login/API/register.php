@@ -15,7 +15,10 @@
   }
 
   else {
-    $sql = "insert into Users (FirstName, LastName, Login, Password) VALUES ('" . $firstName . "','" . $lastName . "','" . $username . "','" . $password . "')";
+    //hash password
+    $hashedPass = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "insert into Users (FirstName, LastName, Login, Password) VALUES ('" . $firstName . "','" . $lastName . "','" . $username . "','" . $hashedPass . "')";
 
     if($result = $conn->query($sql) != TRUE) {
       returnWithError($conn->error);
