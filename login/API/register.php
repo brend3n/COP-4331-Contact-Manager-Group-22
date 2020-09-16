@@ -24,11 +24,13 @@
       returnWithError($conn->error);
     }
 
+    returnWithInfo($firstName, $lastName, $email);
+
     $conn->close();
   }
 
   //returns with no error
-  returnWithError("");
+  //returnWithError("");
 
   //aux functs
   function getRequestInfo() {
@@ -41,7 +43,13 @@
 	}
 
   function returnWithError( $err ) {
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{firstName":"","lastName":"","error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
+	}
+
+  function returnWithInfo( $firstName, $lastName, $email )
+	{
+		$retValue = '{"email":' . $email . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
