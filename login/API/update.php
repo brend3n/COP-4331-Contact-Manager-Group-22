@@ -114,7 +114,7 @@
   }
 
   function returnWithInfo( $firstName, $lastName, $id, $email, $number) {
-    $retValue = '{"FK_UserID":' . $id . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName .  '","Email":"' . $email . '","PhoneNumber":"' . $number . '","error":""}';
+    $retValue = '{"userId":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName .  '","email":"' . $email . '","number":"' . $number . '","error":""}';
     sendResultInfoAsJson( $retValue );
   }
 
