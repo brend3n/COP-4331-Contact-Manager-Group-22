@@ -30,7 +30,7 @@
     $id = $inData["userId"];
 
     //send the updates
-    sendUpdates($array, $id);
+    sendUpdates($array, $id, $conn);
 
     returnWithInfo($newFirst, $newLast, $id, $newEmail, $newNumber);
 
@@ -38,7 +38,7 @@
   }
 
   //aux functs
-  function sendUpdates($array, $id) {
+  function sendUpdates($array, $id, $conn) {
     //select the data
     $sql = "SELECT FirstName, LastName, Email, PhoneNumber FROM Contacts where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "' and Email='" . $inData["email"] . "' and PhoneNumber='" . $inData["number"] . "' and FK_UserID='" . $id . "'";
     $result = $conn->query($sql);
@@ -114,7 +114,7 @@
   }
 
   function returnWithInfo( $firstName, $lastName, $id, $email, $number) {
-    $retValue = 'Successfully updated contact information at: {"FK_UserID":' . $id . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName .  '","Email":"' . $email . '","PhoneNumber":"' . $number . '","error":""}';
+    $retValue = '{"FK_UserID":' . $id . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName .  '","Email":"' . $email . '","PhoneNumber":"' . $number . '","error":""}';
     sendResultInfoAsJson( $retValue );
   }
 
