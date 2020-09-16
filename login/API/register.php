@@ -6,6 +6,7 @@
   $lastName = $inData["lastName"];
   $username = $inData["username"];
   $password = $inData["password"];
+  $email = $inData["email"];
 
   $conn = new mysqli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
@@ -16,15 +17,19 @@
 
   else {
     //hash password
-    $hashedPass = password_hash($password, PASSWORD_DEFAULT);
+    $hashedPass = md5($password);
 
-    $sql = "insert into Users (FirstName, LastName, Login, Password) VALUES ('" . $firstName . "','" . $lastName . "','" . $username . "','" . $hashedPass . "')";
+    $sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Email`, `Login`, `Password`) VALUES ('" . $firstName . "','" . $lastName . "','" . $email . "','" . $username . "','" . $hashedPass . "')";
+    //$result = $conn->query($sql);
 
     if($result = $conn->query($sql) != TRUE) {
-      returnWithError($conn->error);
+        //echo $hashedPass;
+        returnWithError($conn->error);
     }
-
-    returnWithInfo($firstName, $lastName, $email);
+    
+    else {
+      echo "User successfully created";
+    }
 
     $conn->close();
   }
@@ -43,7 +48,7 @@
 	}
 
   function returnWithError( $err ) {
-		$retValue = '{firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
