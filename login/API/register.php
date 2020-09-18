@@ -18,17 +18,27 @@
   else {
     //hash password
     $hashedPass = md5($password);
-
-    $sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Email`, `Login`, `Password`) VALUES ('" . $firstName . "','" . $lastName . "','" . $email . "','" . $username . "','" . $hashedPass . "')";
-    //$result = $conn->query($sql);
-
-    if($result = $conn->query($sql) != TRUE) {
-        //echo $hashedPass;
-        returnWithError($conn->error);
+    
+    //check if user exists
+    $sql = "SELECT FirstName,LastName,Email,Login,Password FROM Users where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "' and Email='" . $inData["email"] . "' and Login='" . $inData["username"] . "' and Password='" . $hashedPass . "'";
+    $result = $conn->query($sql);
+    
+    if($result->num_rows > 0) {
+        returnWithError(" User already exists");
     }
     
     else {
-      echo "User successfully created";
+        $sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Email`, `Login`, `Password`) VALUES ('" . $firstName . "','" . $lastName . "','" . $email . "','" . $username . "','" . $hashedPass . "')";
+        //$result = $conn->query($sql);
+    
+        if($result = $conn->query($sql) != TRUE) {
+            //echo $hashedPass;
+            returnWithError($conn->error);
+        }
+        
+        else {
+          echo "User successfully created";
+        }
     }
 
     $conn->close();
