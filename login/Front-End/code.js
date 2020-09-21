@@ -28,19 +28,19 @@ function login()
 		xhr.send(jsonPayload);
 		
 		var jsonObject = JSON.parse(xhr.responseText);
-		userId = jsonObject.UserID;
+		userId = jsonObject.id;
 		
 		if(userId < 1)
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
-		firstName = jsonObject.firstName;
-		lastName = jsonObject.lastName;
+		firstName = jsonObject.FirstName;
+		lastName = jsonObject.LastName;
 		
 		saveCookie();
 		
-		window.location.href = "login.html";
+		window.location.href = "/html/newLogin.html";
 	}
 	catch(err)
 	{
@@ -89,31 +89,149 @@ function readCookie()
 	}
 }
 
-//ADDING THING CONTACTS
+//CREATING NEW USER
 function addContact()
 {
-	var newContact = document.getElementById("newContact").value;
-	document.getElementById("contactAddResult").innerHTML = "";
+	//userId = 0;
+	document.getElementById("addContacts").innerHTML = "";
 	
-	var jsonpayload = '{"contact" : "' + newContact + '", "userId" : ' + userId + '}';
-	var url = urlBase + '/register.' + extension;
+	//info gathering
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("LastName").value;
+	var email = document.getElementById("email").value;
+	var number = document.getElementById("phone").value;
+	var id = document.getElementById("id").value;
+	
+	var jsonPayload = JSON.stringify({firstName : firstName, lastName : lastName, email : email, number : number, userId : id});
+	var url = urlBase + '/create.' + extension;
 	
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json");
+	
 	try
 	{
 		xhr.onreadystatechange = function()
 		{
-			if(this.readyState == 4 && this.status == 200)
+			if (this.readyState == 4 && this.status == 200) 
+		{
+			var jsonObject = JSON.parse(xhr.responseText);
+			if(!jsonObject.err)
 			{
-				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+				//checking to see if it worked
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+				email = jsonObject.email;
+				number = jsonObject.number;
+				id = jsonObject.id;
+				echo = jsonObject.echo;
+				
+				//clearing the add contact fields 
+				document.getElementById("firstName").value = "";
+				document.getElementById("LastName").value = "";
+				document.getElementById("email").value = "";
+				document.getElementById("phone").value = "";
+				document.getElementById("id").value = "";
 			}
+		}
 		};
-		xhr.send(jsonpayload);
+		xhr.send(jsonPayload);
+		
+	}	
+	catch(err)
+	{
+		document.getElementById("addContacts").innerHTML = err.message;
+	}
+	document.getElementById("addContacts").innerHTML = "contact added!";
+
+}
+
+//UPDATE CONTACT
+function update()
+{
+	
+}
+
+//REGISTERATION
+function register()
+{
+	userId = 0;
+	document.getElementById("register").innerHTML = "";
+	
+	//info gathering
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("lastName").value;
+	var userName = document.getElementById("userName").value;
+	var password = document.getElementById("password").value;
+	var email = document.getElementById("email").value;
+	//var hash = md5(password);
+
+	var jsonPayload = JSON.stringify({firstName : firstName, lastName : lastName, username : userName, password : password, email : email});
+	var url = urlBase + '/register.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json");
+	
+	try
+{
+	xhr.onreadystatechange = function()
+	{
+		if (this.readyState == 4 && this.status == 200) 
+		{
+			var jsonObject = JSON.parse(xhr.responseText);
+			window.firstName = firstName;
+			window.lastName = lastName;
+			saveCookie();
+			window.location.href = "/";
+		}
+	};
+	xhr.send(jsonPayload);
+}
+catch(err)
+{
+	document.getElementById("register").innerHTML = err.message;
+}
+//document.getElementById("register").innerHTML = echo.message;
+}
+
+// DELETE 
+function deleteContact()
+{
+	userId = 0;
+	document.getElementById("deleteContact").innerHTML = "";
+	
+	//getting the info for php
+	var firstName = document.getElementById("Fname").value;
+	var lastName = document.getElementById("Lname").value;
+	var email = document.getElementById("email").value;
+	var number = document.getElementById("phone").value;
+	var id = document.getElementById("id").value;
+
+	var jsonPayload = JSON.stringify({firstName : firstName, lastName : lastName, email : email, number : number, userId : id});
+	var url = urlBase + '/delete.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var jsonObject = JSON.parse(xhr.responseText);
+				
+			}
+			
+		};
+		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("contactAddResult").innerHTML = err.message;
+		document.getElementById("deleteContact").innerHTML = err.message;
 	}
 }
+
+
