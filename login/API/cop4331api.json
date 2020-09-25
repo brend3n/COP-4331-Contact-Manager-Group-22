@@ -212,7 +212,7 @@
           "type" : "string",
           "example" : "1231234567"
         },
-        "userId" : {
+        "id" : {
           "type" : "integer",
           "example" : 2
         }
