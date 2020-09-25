@@ -194,7 +194,7 @@
     },
     "Contact" : {
       "type" : "object",
-      "required" : [ "firstName", "lastName", "email", "number", "userId" ],
+      "required" : [ "firstName", "lastName", "email", "number", "id" ],
       "properties" : {
         "firstName" : {
           "type" : "string",
