@@ -256,44 +256,44 @@
     },
     "Update" : {
       "type" : "object",
-      "required" : [ "firstName", "lastName", "email", "number", "id", "newFirst", "newLast", "newEmail", "newNumber" ]
-    },
-    "properties" : {
-      "firstName" : {
-        "type" : "string",
-        "example" : "aden"
-      },
-      "lastName" : {
-        "type" : "string",
-        "example" : "carver"
-      },
-      "email" : {
-        "type" : "string",
-        "example" : "email@email.com"
-      },
-      "number" : {
-        "type" : "string",
-        "example" : "1234567890"
-      },
-      "id" : {
-        "type" : "integer",
-        "example" : 2
-      },
-      "newFirst" : {
-        "type" : "string",
-        "example" : "neda"
-      },
-      "newLast" : {
-        "type" : "string",
-        "example" : "revrac"
-      },
-      "newEmail" : {
-        "type" : "string",
-        "example" : "notemail@email.com"
-      },
-      "newNumber" : {
-        "type" : "string",
-        "example" : "4561230987"
+      "required" : [ "firstName", "lastName", "email", "number", "id", "newFirst", "newLast", "newEmail", "newNumber" ],
+      "properties" : {
+        "firstName" : {
+          "type" : "string",
+          "example" : "aden"
+        },
+        "lastName" : {
+          "type" : "string",
+          "example" : "carver"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "email@email.com"
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "1234567890"
+        },
+        "id" : {
+          "type" : "integer",
+          "example" : 2
+        },
+        "newFirst" : {
+          "type" : "string",
+          "example" : "neda"
+        },
+        "newLast" : {
+          "type" : "string",
+          "example" : "revrac"
+        },
+        "newEmail" : {
+          "type" : "string",
+          "example" : "notemail@email.com"
+        },
+        "newNumber" : {
+          "type" : "string",
+          "example" : "4561230987"
+        }
       }
     }
   },
