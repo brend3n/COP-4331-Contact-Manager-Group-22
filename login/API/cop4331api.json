@@ -99,7 +99,7 @@
       }
     },
     "/read.php" : {
-      "post" : {
+      "get" : {
         "tags" : [ "Contacts" ],
         "summary" : "reads contact information",
         "operationId" : "readContact",
@@ -108,10 +108,10 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
-          "name" : "contactItem",
-          "description" : "Contact",
+          "name" : "searchItem",
+          "description" : "Search",
           "schema" : {
-            "$ref" : "#/definitions/Contact"
+            "$ref" : "#/definitions/Search"
           }
         } ],
         "responses" : {
@@ -237,6 +237,20 @@
         "password" : {
           "type" : "string",
           "example" : "leviosa"
+        }
+      }
+    },
+    "Search" : {
+      "type" : "object",
+      "required" : [ "search", "id" ],
+      "properties" : {
+        "search" : {
+          "type" : "string",
+          "example" : "chungus"
+        },
+        "id" : {
+          "type" : "integer",
+          "example" : 2
         }
       }
     }
