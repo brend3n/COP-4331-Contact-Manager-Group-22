@@ -99,7 +99,7 @@
       }
     },
     "/read.php" : {
-      "get" : {
+      "post" : {
         "tags" : [ "Contacts" ],
         "summary" : "reads contact information",
         "operationId" : "readContact",
