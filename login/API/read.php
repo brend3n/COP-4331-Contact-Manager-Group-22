@@ -2,11 +2,8 @@
 
   $inData = getRequestInfo();
 
-  $id = 0;
-  $firstName = "";
-  $lastName = "";
-  $email = "";
-  $number = "";
+  $id = $inData["userId"];
+  $search = $inData["search"];
 
   $conn = new mysqli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
@@ -16,18 +13,25 @@
   }
 
   else {
-    $sql = "SELECT FK_UserID,FirstName,LastName,Email,PhoneNumber FROM Contacts where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "'Email='" . $inData["email"] . "' and PhoneNumber='" . $inData["number"] . "' and FK_UserId='" . $inData["userId"] . "'";
+    $sql = $sql = "SELECT * FROM `Contacts` WHERE FK_UserID='" . $id . "' AND (FirstName LIKE '%" . $search . "%' OR LastName LIKE '%" . $search . "%' OR Email LIKE '%" . $search . "%' OR PhoneNumber LIKE '%" . $search . "%')";
     $result = $conn->query($sql);
 
     if($result->num_rows > 0) {
-      $row = $result->fetch_assoc();
-      $firstName = $row["FirstName"];
-      $lastName = $row["LastName"];
-      $email = $row["Email"];
-      $number = $row["PhoneNumber"];
-      $id = $row["FK_UserID"];
+      //number of search results
+      $numResults = $result->num_rows;
 
-      returnWithInfo($firstName, $lastName, $id, $email, $number);
+      $results = array();
+
+      while($row = $result->fetch_assoc()) {
+        $results[] = array(
+          "firstName" = $row["FirstName"];
+          "lastName" = $row["LastName"];
+          "email" = $row["Email"];
+          "number" = $row["PhoneNumber"];
+        )
+      }
+
+      return json_encode($results);
     }
 
     else {
