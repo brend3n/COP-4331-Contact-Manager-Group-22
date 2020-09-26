@@ -16,13 +16,11 @@
 
     //contacts associated with user, delete all
     if($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $sql = "DELETE FROM `Contacts` WHERE FirstName='" . $row["FirstName"] . "' and LastName='" . $row["LastName"] . "' and Email='" . $row["Email"] . "' and PhoneNumber='" . $row["PhoneNumber"] . "' and FK_UserID='" . $id . "'";
+        $sql = "DELETE FROM `Contacts` WHERE `FK_UserID`='" . $id . "'";
         $result = $conn->query($sql);
-      }
-
-        returnWithInfo($id);
-    }
+    
+        returnWithInfo($id); 
+     }
 
     //no contacts associated with user, do nothing
     else
@@ -46,9 +44,7 @@
     sendResultInfoAsJson( $retValue );
   }
 
-  function returnWithInfo( $firstName, $lastName, $id, $email, $number) {
-    $retValue = '{"UserID":' . $id . '","error":""}';
+  function returnWithInfo($id) {
+    $retValue = '{"UserID":' . $id . ',"error":""}';
     sendResultInfoAsJson( $retValue );
   }
-
- ?>
