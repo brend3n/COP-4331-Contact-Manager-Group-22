@@ -189,7 +189,33 @@
           "name" : "deleteContacts",
           "description" : "DeleteCont",
           "schema" : {
-            "$ref" : "#/definitions/DeleteCont"
+            "$ref" : "#/definitions/Delete"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
+    },
+    "/deleteUsers.php" : {
+      "post" : {
+        "tags" : [ "Users" ],
+        "summary" : "deletes user's profile",
+        "operationId" : "deleteUser",
+        "description" : "deletes user's information and all contacts associated with user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "deleteUsers",
+          "description" : "DeleteUser",
+          "schema" : {
+            "$ref" : "#/definitions/Delete"
           }
         } ],
         "responses" : {
@@ -322,7 +348,7 @@
         }
       }
     },
-    "DeleteCont" : {
+    "Delete" : {
       "type" : "object",
       "required" : [ "id" ],
       "properties" : {
