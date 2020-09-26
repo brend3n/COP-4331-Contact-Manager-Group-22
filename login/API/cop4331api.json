@@ -108,10 +108,10 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
-          "name" : "contactItem",
-          "description" : "Contact",
+          "name" : "searchItem",
+          "description" : "Search",
           "schema" : {
-            "$ref" : "#/definitions/Contact"
+            "$ref" : "#/definitions/Search"
           }
         } ],
         "responses" : {
@@ -160,10 +160,10 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
-          "name" : "contactItem",
-          "description" : "Contact",
+          "name" : "updateItem",
+          "description" : "Update",
           "schema" : {
-            "$ref" : "#/definitions/Contact"
+            "$ref" : "#/definitions/Update"
           }
         } ],
         "responses" : {
@@ -194,7 +194,7 @@
     },
     "Contact" : {
       "type" : "object",
-      "required" : [ "firstName", "lastName", "email", "number", "userId" ],
+      "required" : [ "firstName", "lastName", "email", "number", "id" ],
       "properties" : {
         "firstName" : {
           "type" : "string",
@@ -212,7 +212,7 @@
           "type" : "string",
           "example" : "1231234567"
         },
-        "userId" : {
+        "id" : {
           "type" : "integer",
           "example" : 2
         }
@@ -237,6 +237,62 @@
         "password" : {
           "type" : "string",
           "example" : "leviosa"
+        }
+      }
+    },
+    "Search" : {
+      "type" : "object",
+      "required" : [ "search", "id" ],
+      "properties" : {
+        "search" : {
+          "type" : "string",
+          "example" : "chungus"
+        },
+        "id" : {
+          "type" : "integer",
+          "example" : 2
+        }
+      }
+    },
+    "Update" : {
+      "type" : "object",
+      "required" : [ "firstName", "lastName", "email", "number", "id", "newFirst", "newLast", "newEmail", "newNumber" ],
+      "properties" : {
+        "firstName" : {
+          "type" : "string",
+          "example" : "aden"
+        },
+        "lastName" : {
+          "type" : "string",
+          "example" : "carver"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "email@email.com"
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "1234567890"
+        },
+        "id" : {
+          "type" : "integer",
+          "example" : 2
+        },
+        "newFirst" : {
+          "type" : "string",
+          "example" : "neda"
+        },
+        "newLast" : {
+          "type" : "string",
+          "example" : "revrac"
+        },
+        "newEmail" : {
+          "type" : "string",
+          "example" : "notemail@email.com"
+        },
+        "newNumber" : {
+          "type" : "string",
+          "example" : "4561230987"
         }
       }
     }
