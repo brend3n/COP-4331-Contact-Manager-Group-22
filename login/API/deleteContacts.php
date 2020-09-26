@@ -1,5 +1,4 @@
 <?php
-
   $inData = getRequestInfo();
 
   $id = $inData["id"];
@@ -21,18 +20,15 @@
         $sql = "DELETE FROM `Contacts` WHERE FirstName='" . $row["FirstName"] . "' and LastName='" . $row["LastName"] . "' and Email='" . $row["Email"] . "' and PhoneNumber='" . $row["PhoneNumber"] . "' and FK_UserID='" . $id . "'";
         $result = $conn->query($sql);
       }
+
+        returnWithInfo($id);
     }
 
     //no contacts associated with user, do nothing
     else
-      ;
+      returnWithError(" No associated contacts ");
 
-    //all contacts gone now delete user
-    $sql = "DELETE FROM `Users` WHERE UserID='" . $id . "'";
-
-    returnWithInfo($id);
-
-    $conn->close()
+    $conn->close();
   }
 
   //aux functs
@@ -55,4 +51,4 @@
     sendResultInfoAsJson( $retValue );
   }
 
-?>
+ ?>
