@@ -3,11 +3,11 @@
   $inData = getRequestInfo();
 
   //original data in contacts
-  $id = 0;
-  $firstName = "";
-  $lastName = "";
-  $email = "";
-  $number = "";
+  $id = $inData["id"];
+  $firstName = $inData["firstName"];
+  $lastName = $inData["lastName"];
+  $email = $inData["email"];
+  $number = $inData["number"];
 
   //data to be updated
   $newFirst = $inData["newFirst"];
@@ -27,8 +27,14 @@
   }
 
   else {
+    if(strlen($firstName) == 0 || strlen($lastName) == 0 || strlen($email) == 0 || strlen($number) == 0)
+        returnWithError(" All contact information required ");
+    
+    if(strlen($newFirst) == 0 && strlen($newLast) == 0 && strlen($newEmail) == 0 && strlen($newNumber) == 0)
+        returnWithError(" At least one update field is required ");
+      
     //select the data
-    $sql = "SELECT FK_UserID,FirstName,LastName,Email,PhoneNumber FROM Contacts where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "' and Email='" . $inData["email"] . "' and PhoneNumber='" . $inData["number"] . "' and FK_UserId='" . $inData["userId"] . "'";
+    $sql = "SELECT `FK_UserID`,`FirstName`,`LastName`,`Email`,`PhoneNumber` FROM `Contacts` where FirstName='" . $firstName . "' and LastName='" . $lastName . "' and Email='" . $email . "' and PhoneNumber='" . $number . "' and FK_UserId='" . $id . "'";
     $result = $conn->query($sql);
 
     //send the updates
@@ -83,7 +89,7 @@
               ;
       }
       
-      returnWithInfo($newFirst, $newLast, $id, $newEmail, $newNumber);
+      returnWithInfo($firstName, $lastName, $id, $email, $number);
     }
     
     else { 
