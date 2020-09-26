@@ -16,44 +16,47 @@
   }
 
   else {
+    if(strlen($firstName) == 0 || strlen($lastName) == 0 || strlen($username) == 0 || strlen($password) == 0 || strlen($email) == 0)
+        returnWithError(" All fields required ");
+      
     //hash password
     $hashedPass = md5($password);
-
-    //check if email is used
-    $sql = "SELECT Email FROM Users where Email='" . $email . "'";
-    $result = $conn->query($sql);
-
-    if($result->num_rows > 0) {
-        returnWithError(" Email already in use ");
-    }
-
-    //check if username is already used
-    $sql = "SELECT Username FROM Users where Username='" . $username . "'";
-    $result = $conn->query($sql);
-
-    if($result->num_rows > 0) {
-        returnWithError(" Username already in use ");
-    }
-
+    
     //check if user exists
     $sql = "SELECT FirstName,LastName,Email,Login,Password FROM Users where FirstName='" . $inData["firstName"] . "' and LastName='" . $inData["lastName"] . "' and Email='" . $inData["email"] . "' and Login='" . $inData["username"] . "' and Password='" . $hashedPass . "'";
     $result = $conn->query($sql);
-
+    
     if($result->num_rows > 0) {
         returnWithError(" User already exists");
     }
-
+    
     else {
+        //check if email is used
+        $sql = "SELECT Email FROM Users where Email='" . $email . "'";
+        $result = $conn->query($sql);
+    
+        if($result->num_rows > 0) {
+            returnWithError(" Email already in use ");
+        }
+    
+        //check if username is already used
+        $sql = "SELECT Username FROM Users where Username='" . $username . "'";
+        $result = $conn->query($sql);
+    
+        if($result->num_rows > 0) {
+            returnWithError(" Username already in use ");
+        }
+        
         $sql = "INSERT INTO `Users`(`FirstName`, `LastName`, `Email`, `Login`, `Password`) VALUES ('" . $firstName . "','" . $lastName . "','" . $email . "','" . $username . "','" . $hashedPass . "')";
         //$result = $conn->query($sql);
-
+    
         if($result = $conn->query($sql) != TRUE) {
             //echo $hashedPass;
             returnWithError($conn->error);
         }
-
-        else {
-          echo "User successfully created";
+        
+       else {
+          returnWithInfo($firstName, $lastName, $email);
         }
     }
 
@@ -80,7 +83,7 @@
 
   function returnWithInfo( $firstName, $lastName, $email )
 	{
-		$retValue = '{"email":' . $email . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = '{"email":"' . $email . '","firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
