@@ -16,7 +16,7 @@
     if(strlen($search) == 0)
         returnWithError(" Search string required ");
     
-    $sql = "SELECT * FROM `Contacts` WHERE FK_UserID=" . $id . " AND FirstName LIKE '%" . $search . "%' OR LastName LIKE '%" . $search . "%' OR Email LIKE '%" . $search . "%' OR PhoneNumber LIKE '%" . $search . "%'";
+    $sql = "SELECT * FROM `Contacts` WHERE FK_UserID=" . $id . " AND (FirstName LIKE '%" . $search . "%' OR LastName LIKE '%" . $search . "%' OR Email LIKE '%" . $search . "%' OR PhoneNumber LIKE '%" . $search . "%')";
     $result = $conn->query($sql);
 
     if($result->num_rows > 0) {
