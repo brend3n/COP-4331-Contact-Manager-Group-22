@@ -5,6 +5,9 @@
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
+	
+	$username = $inData["login"];
+	$password = $inData["password"];
 
 	$conn = new mysqli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 	if ($conn->connect_error)
@@ -13,7 +16,12 @@
 	}
 	else
 	{
-		$sql = "SELECT UserID,FirstName,LastName FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
+	    if(strlen($username) == 0 || strlen($password) == 0)
+	        returnWithError(" Required fields: username and password ");
+	    
+	    //echo "hi";
+	    
+		$sql = "SELECT UserID,FirstName,LastName FROM Users where Login='" . $username . "' and Password='" . $password . "'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
