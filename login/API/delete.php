@@ -6,7 +6,7 @@
   $lastName = $inData["lastName"];
   $email = $inData["email"];
   $number = $inData["number"];
-  $id = $inData["userId"];
+  $id = $inData["id"];
 
   $conn = new mysqli("localhost", "smallpro_cop4331", "Popgame1!", "smallpro_cop4331");
 
@@ -16,12 +16,19 @@
   }
 
   else {
+    if(strlen($firstName) == 0 || strlen($lastName) == 0 || strlen($email) == 0 || strlen($number) == 0)
+        returnWithError(" All fields must be filled in ");
+    
     $sql = "DELETE FROM Contacts WHERE FirstName='" . $firstName . "' and LastName='" . $lastName . "' and Email='" . $email . "' and PhoneNumber='" . $number . "' and FK_UserID='" . $id . "'";
     //$result = $conn->query($sql);
 
     if($result = $conn->query($sql) != TRUE) {
       returnWithError($conn->error);
     }
+    
+    //echo "Contact successfully deleted";
+    //making a change by Jainav Patel
+    returnWithInfo($firstName,$lastName,$id,$email,$number);
 
     $conn->close();
   }
