@@ -189,7 +189,7 @@
           "name" : "deleteContacts",
           "description" : "DeleteCont",
           "schema" : {
-            "$ref" : "#/definitions/Delete"
+            "$ref" : "#/definitions/IdOnly"
           }
         } ],
         "responses" : {
@@ -215,7 +215,33 @@
           "name" : "deleteUsers",
           "description" : "DeleteUser",
           "schema" : {
-            "$ref" : "#/definitions/Delete"
+            "$ref" : "#/definitions/IdOnly"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
+    },
+    "/listAllCont.php" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "lists all contacts",
+        "operationId" : "listAllCont",
+        "description" : "lists all contacts associated with a user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "listContacts",
+          "description" : "ListContacts",
+          "schema" : {
+            "$ref" : "#/definitions/IdOnly"
           }
         } ],
         "responses" : {
@@ -348,7 +374,7 @@
         }
       }
     },
-    "Delete" : {
+    "IdOnly" : {
       "type" : "object",
       "required" : [ "id" ],
       "properties" : {
