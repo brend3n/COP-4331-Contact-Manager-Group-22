@@ -175,6 +175,32 @@
           }
         }
       }
+    },
+    "/deleteContacts.php" : {
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "deletes all contacts",
+        "operationId" : "deleteContacts",
+        "description" : "deletes all contacts associated with a user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "deleteContacts",
+          "description" : "DeleteCont",
+          "schema" : {
+            "$ref" : "#/definitions/DeleteCont"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "URL Not Found"
+          }
+        }
+      }
     }
   },
   "definitions" : {
@@ -293,6 +319,16 @@
         "newNumber" : {
           "type" : "string",
           "example" : "4561230987"
+        }
+      }
+    },
+    "DeleteCont" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "example" : 2
         }
       }
     }
