@@ -28,7 +28,7 @@ function login()
 		xhr.send(jsonPayload);
 		
 		var jsonObject = JSON.parse(xhr.responseText);
-		userId = jsonObject.id;
+		userId = jsonObject.UserID;
 		
 		if(userId < 1)
 		{
@@ -97,16 +97,17 @@ function addContact()
 	
 	//info gathering
 	var firstName = document.getElementById("firstName").value;
-	var lastName = document.getElementById("LastName").value;
+	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
-	var number = document.getElementById("phone").value;
-	var id = document.getElementById("id").value;
+	var number = document.getElementById("number").value;
+	//var id = document.getElementById("id").value;
+	var id = userId;
 	
-	var jsonPayload = JSON.stringify({firstName : firstName, lastName : lastName, email : email, number : number, userId : id});
+	var jsonPayload = JSON.stringify({firstName : firstName, lastName : lastName, email : email, number : number, id : userId});
 	var url = urlBase + '/create.' + extension;
 	
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, false);
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json");
 	
 	try
@@ -124,13 +125,12 @@ function addContact()
 				email = jsonObject.email;
 				number = jsonObject.number;
 				id = jsonObject.id;
-				echo = jsonObject.echo;
 				
 				//clearing the add contact fields 
 				document.getElementById("firstName").value = "";
-				document.getElementById("LastName").value = "";
+				document.getElementById("lastName").value = "";
 				document.getElementById("email").value = "";
-				document.getElementById("phone").value = "";
+				document.getElementById("number").value = "";
 				document.getElementById("id").value = "";
 			}
 		}
@@ -149,7 +149,45 @@ function addContact()
 //UPDATE CONTACT
 function update()
 {
+	document.getElementById("update").innerHTML = "";
 	
+	//gather old info 
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("lastName").value;
+	var number = document.getElementById("number").value;
+	var email = document.getElementById("email").value;
+	var id = userId;
+	
+	//gather new info 
+	var newFirst = document.getElementById("newFirst").value;
+	var newLast = document.getElementById("newLast").value;
+	var newEmail = document.getElementById("newEmail").value;
+	var newNumber = document.getElementById("newNumber").value;
+	
+	var jsonPayload = JSON.stringify({firstName : firstName, lastName : lastName, email : email, number : number, id : userId, newFirst : newFirst, newLast : newLast, newEmail : newEmail, newNumber : newNumber});
+	var url = urlBase + '/update.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+			    document.getElementById("update").innerHTML = "Contact updated Successfully!";
+				var jsonObject = JSON.parse(xhr.responseText);
+				window.location.href = "/html/newLogin.html";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("update").innerHTML = err.message;
+	}
 }
 
 //REGISTERATION
@@ -170,7 +208,7 @@ function register()
 	var url = urlBase + '/register.' + extension;
 	
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, false);
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json");
 	
 	try
@@ -186,6 +224,11 @@ function register()
 			window.location.href = "/";
 		}
 	};
+	console.login = firstName;
+	console.login = lastName;
+	console.login = userName;
+	console.login = password;
+	console.login = email;
 	xhr.send(jsonPayload);
 }
 catch(err)
@@ -195,20 +238,20 @@ catch(err)
 //document.getElementById("register").innerHTML = echo.message;
 }
 
-// DELETE 
-function deleteContact()
+// DELETE CONTACT
+function deleteAccount()
 {
-	userId = 0;
-	document.getElementById("deleteContact").innerHTML = "";
+	//userId = 0;
+	document.getElementById("deleteContacts").innerHTML = "";
 	
 	//getting the info for php
-	var firstName = document.getElementById("Fname").value;
-	var lastName = document.getElementById("Lname").value;
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
-	var number = document.getElementById("phone").value;
-	var id = document.getElementById("id").value;
+	var number = document.getElementById("number").value;
+	var id = userId;
 
-	var jsonPayload = JSON.stringify({firstName : firstName, lastName : lastName, email : email, number : number, userId : id});
+	var jsonPayload = JSON.stringify({firstName : firstName, lastName : lastName, email : email, number : number, id : userId});
 	var url = urlBase + '/delete.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -221,7 +264,9 @@ function deleteContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+			    document.getElementById("deleteContacts").innerHTML = "Contact deleted Successfully!";
 				var jsonObject = JSON.parse(xhr.responseText);
+				window.location.href = "/html/newLogin.html";
 				
 			}
 			
@@ -230,8 +275,130 @@ function deleteContact()
 	}
 	catch(err)
 	{
-		document.getElementById("deleteContact").innerHTML = err.message;
+		document.getElementById("deleteContacts").innerHTML = err.message;
 	}
 }
 
+//Function to read / search
+function read()
+{
+	document.getElementById("read").innerHTML = "";
+	var id = userId;
+	var search = document.getElementById("searchBar").value;
+	var searchList = "";
+	
+	var jsonPayload = JSON.stringify({id : userId, search: search});
+	var url = urlBase + '/read.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+			    
+			    document.getElementById("read").innerHTML = "search has been performed!";
+				var jsonObject = JSON.parse(xhr.responseText);
+				document.getElementById("read").innerHTML = xhr.responseText;
+			/*	for(var i = 0; i < jsonObject.results.length; i++)
+				{
+				    searchList += jsonObject.results[i];
+				    if(i < jsonObject.results.length - 1)
+				    {
+				        searchList += "<br />\r\n";
+				    }
+				} 
+				document.getElementsByTagName("p")[0].innerHTML = searchList;
+				*/
+			}
+			
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("read").innerHTML = err.message;
+		document.getElementById("read").innerHTML = "Contact was not found! please try again.";
+	}
+	
+}
 
+//Function to sign out
+function logout()
+{
+    userId = 0;
+	firstName = "";
+	lastName = "";
+	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	window.location.href = "index.html";
+}
+
+//Function which gets all the contacts using userId
+function getContactInfo()
+{
+    document.getElementById("contactInfo").innerHTML = "";
+    var id = userId;
+    
+    var jsonPayload = JSON.stringify({id : userId});
+    var url = urlBase + '/listAllCont.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+    
+    	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+			    document.getElementById("contactInfo").innerHTML = xhr.responseText;
+			    var jsonObject = JSON.parse(xhr.responseText);
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	
+	catch(err)
+	{
+	    document.getElementById("contactInfo").innerHTML = err.message;
+	}
+}
+
+//Function to delete the User itself 
+function deleteUser()
+{
+    document.getElementById("deleteUser").innerHTML = "";
+    var id = userId;
+    
+    var jsonPayload = JSON.stringify({id : userId});
+    var url = urlBase + '/deleteUser.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+    
+    	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+			    document.getElementById("deleteUser").innerHTML = "User has been deleted!";
+			    var jsonObject = JSON.parse(xhr.responseText);
+			    window.location.href = "/";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	
+	catch(err)
+	{
+	    document.getElementById("deleteUser").innerHTML = err.message;
+	}
+    
+}
