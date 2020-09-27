@@ -380,7 +380,7 @@
       "properties" : {
         "id" : {
           "type" : "integer",
-          "example" : 2
+          "example" : 52
         }
       }
     }
