@@ -298,7 +298,7 @@
     },
     "Register" : {
       "type" : "object",
-      "required" : [ "firstName", "lastName", "username", "password" ],
+      "required" : [ "firstName", "lastName", "username", "password", "email" ],
       "properties" : {
         "firstName" : {
           "type" : "string",
@@ -315,6 +315,10 @@
         "password" : {
           "type" : "string",
           "example" : "leviosa"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "gryffindor1@email.com"
         }
       }
     },
