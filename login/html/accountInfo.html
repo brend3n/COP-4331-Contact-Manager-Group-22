@@ -2,6 +2,13 @@
 <html>
 <head>
     <link href = " ..\css\contacts.css" rel ="stylesheet">
+    <script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() 
+	{
+		readCookie();
+	}, false);
+	</script>
+
 </head>
 <canvas id = "c"></canvas>
 
@@ -16,31 +23,43 @@
             <form class="form-container" id = "newContactForm">
           
             <p>
-              <label >First Name:</label>
-              <label id = Fname>Get Name</label>
+              <label>FirstName: </label>
+                    <input type = "text"
+                            id = "firstName"
+                            value = ""
+                            placeholder = "firstname"
+                            size = "25"/>
             </p>
 
             <p>
-              <label>Last Name:</label>
-              <label id = Lname>Get Name</label>
+              <label>LastName: </label>
+                    <input type = "text"
+                            id = "lastName"
+                            value = ""
+                            placeholder = "lastname"
+                            size = "25"/>
             </p>
 
             <p>
-              <label>Email:</label>
-              <label id = email>Get Name</label>
+              <label>Email: </label>
+                    <input type = "text"
+                            id = "email"
+                            value = ""
+                            placeholder = "emails"
+                            size = "25"/>
             </p>
 
             <p>
-              <label> Login:</label>
-              <label id = phone >Get loginName</label>
+              <label>Phone: </label>
+                    <input type = "text"
+                            id = "number"
+                            value = ""
+                            placeholder = "phoneNumber"
+                            size = "25"/>
             </p>  
             
             <p>
-                <label>User ID:</label>
-                <label id = id >Get ID</label>
-            </p>  
-            
-            <p>
+			  <span id = "deleteContact"></span>
               <button type="button" id = "deleteContact" class="buttons" onclick = "deleteAccount();">Delete Account</button>
 			  <a href = "newLogin.html">
                 
