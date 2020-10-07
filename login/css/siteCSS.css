@@ -12,6 +12,19 @@ h1
     text-align: center;
 }
 
+h2
+{
+    font-size: 48px;
+    color: white;
+    position: absolute;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
 #login_form
 {
     box-sizing: border-box;
@@ -25,7 +38,7 @@ h1
     font-size: 20px;
     top: 30%;
     display: block;
-    width: 14%;
+    width: 27%;
     border: 3px solid green;
 }
 
@@ -64,4 +77,5 @@ input
     border: 3px solid green;
     color: white;
     background: black;
+    width : 100%;
 }
